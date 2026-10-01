@@ -1,0 +1,27 @@
+[workspace]
+name = "tb-trigger-summer4"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[dependencies]
+python = "3.13.*"
+pandas = ">=2.2"
+jupyterlab = "*"
+ipykernel = "*"
+pytest = "*"
+black = "*"
+nbformat = "*"
+nbclient = "*"
+
+[pypi-dependencies]
+# Latest released summer4 (tag v0.2.0a5, 2026-09-28).
+summer4 = { git = "https://github.com/monash-emu/summer4.git", tag = "v0.2.0a5", extras = ["pandas"] }
+plotly = ">=6.6, <7"
+tb_trigger = { path = ".", editable = true }
+
+[tasks]
+test = "pytest -q -m 'not notebooks'"
+test-notebooks = "pytest -q -m notebooks"
+format = "black src tests"
+format-check = "black --check src tests"
+notebook = "jupyter lab notebooks"
